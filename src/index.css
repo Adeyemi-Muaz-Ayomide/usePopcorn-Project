@@ -27,6 +27,7 @@ body {
   color: var(--color-text);
   background-color: var(--color-background-900);
   padding: 2.4rem;
+  margin: 0;
 }
 
 /* ******* */
@@ -54,7 +55,6 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  /* overflow: scroll; */
   position: relative;
 }
 
@@ -138,7 +138,7 @@ body {
 .list {
   list-style: none;
   padding: 0.8rem 0;
-  overflow: scroll;
+
 }
 
 .list-watched {
@@ -338,6 +338,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+/* Your base styles */
+
+/* Media query for smaller screens */
+
+
 
 /*
 SPACING SYSTEM (px)
