@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Main from "./components/Main/MoviesList/Main";
+import NumResults from "./components/Navbar/NumResults";
+import MoviesList from "./components/Main/MoviesList/MoviesList";
 
 const tempMovieData = [
   {
@@ -26,13 +28,30 @@ const tempMovieData = [
   },
 ];
 
+const KEY = 'b0ea5caa'
+const QUERY = 'interstellar'
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
 
+  useEffect(() => {
+    const getMoviesData = async () => {
+      const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${QUERY}`)
+      const data = await res.json()
+      setMovies(data.Search)
+      // setMovies(data)
+    } 
+
+    getMoviesData()
+  }, []);
+
   return (
     <>
-      <Navbar movies={movies} />
-      <Main movies={movies} />
+      <Navbar>
+        <NumResults movies={movies} />
+      </Navbar>
+      <Main>
+        <MoviesList movies={movies} />
+      </Main>
     </>
   );
 }

@@ -1,10 +1,8 @@
-import MoviesList from "./MoviesList";
 import Watched from "../WatchedMovies/Watched";
-
-const Main = ({ movies }) => {
+const Main = ({ children }) => {
   return (
     <main className="main">
-      <MoviesList movies={movies} />
+      {children}
       <Watched />
     </main>
   );
