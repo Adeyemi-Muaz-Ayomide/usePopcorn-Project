@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Main from "./components/Main/MoviesList/Main";
 import NumResults from "./components/Navbar/NumResults";
 import MoviesList from "./components/Main/MoviesList/MoviesList";
+import Loading from "./components/UI/Loading";
 
 const tempMovieData = [
   {
@@ -28,20 +29,24 @@ const tempMovieData = [
   },
 ];
 
-const KEY = 'b0ea5caa'
-const QUERY = 'interstellar'
+const KEY = "b0ea5caa";
+const QUERY = "interstellar";
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getMoviesData = async () => {
-      const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${QUERY}`)
-      const data = await res.json()
-      setMovies(data.Search)
-      // setMovies(data)
-    } 
+      setIsLoading(true);
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=${QUERY}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+      setIsLoading(false);
+    };
 
-    getMoviesData()
+    getMoviesData();
   }, []);
 
   return (
@@ -50,7 +55,7 @@ export default function App() {
         <NumResults movies={movies} />
       </Navbar>
       <Main>
-        <MoviesList movies={movies} />
+        {isLoading ? <Loading /> : <MoviesList movies={movies} />}
       </Main>
     </>
   );
