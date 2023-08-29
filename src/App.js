@@ -5,6 +5,8 @@ import NumResults from "./components/Navbar/NumResults";
 import MoviesList from "./components/Main/MoviesList/MoviesList";
 import Loading from "./components/UI/Loading";
 import Error from "./components/UI/Error";
+import Search from "./components/Navbar/Search";
+//Usekey don't forget
 
 const tempMovieData = [
   {
@@ -33,6 +35,7 @@ const tempMovieData = [
 const KEY = "b0ea5caa";
 const QUERY = "interstellar";
 export default function App() {
+  const [query, setQuery] = useState('')
   const [movies, setMovies] = useState(tempMovieData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -61,6 +64,7 @@ export default function App() {
   return (
     <>
       <Navbar>
+        <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </Navbar>
       <Main>
