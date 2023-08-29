@@ -1,14 +1,11 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Main from "./components/Main/MoviesList/Main";
-import NumResults from "./components/Navbar/NumResults";
 import MoviesList from "./components/Main/MoviesList/MoviesList";
 import Loading from "./components/UI/Loading";
 import Error from "./components/UI/Error";
-import Search from "./components/Navbar/Search";
 import Box from "./components/UI/Box";
 import { useLocalStorageState } from "./components/useLocalStorageState";
-// import StarRating from "./components/StarRating";
 import Summary from "./components/Main/WatchedMovies/Summary";
 import WatchedList from "./components/Main/WatchedMovies/WatchedList";
 import Watched from "./components/Main/WatchedMovies/Watched";
@@ -41,10 +38,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar>
-        <Search query={query} setQuery={setQuery} />
-        <NumResults movies={movies} />
-      </Navbar>
+      <Navbar query={query} setQuery={setQuery} movies={movies} />
       <Main>
         <Box>
           {isLoading && <Loading />}

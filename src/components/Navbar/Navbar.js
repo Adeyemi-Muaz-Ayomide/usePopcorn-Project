@@ -1,10 +1,13 @@
+import Search from "./Search";
+import NumResults from "./NumResults";
 import Logo from "./Logo";
 
-const Navbar = ({ children }) => {
+const Navbar = ({ query, setQuery, movies }) => {
   return (
     <nav className="nav-bar">
       <Logo />
-      {children}
+      <Search query={query} setQuery={setQuery} />
+      <NumResults movies={movies} />
     </nav>
   );
 };
