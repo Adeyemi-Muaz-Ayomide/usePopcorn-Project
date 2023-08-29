@@ -7,9 +7,11 @@ import Loading from "./components/UI/Loading";
 import Error from "./components/UI/Error";
 import Search from "./components/Navbar/Search";
 import Box from "./components/UI/Box";
-import { useLocalStorageState } from "./useLocalStorageState";
-
-//Usekey don't forget
+import { useLocalStorageState } from "./components/useLocalStorageState";
+import StarRating from "./components/StarRating";
+import Summary from "./components/Main/WatchedMovies/Summary";
+import WatchedList from "./components/Main/WatchedMovies/WatchedList";
+import Watched from "./components/Main/WatchedMovies/Watched";
 
 const tempMovieData = [
   {
@@ -51,6 +53,9 @@ export default function App() {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   };
 
+  const handleCloseMovie = () => {
+    setSelectedId(null);
+  }
 
   const handleAddWatched = (movie) => {
     setWatched((watched) => [...watched, movie]);
@@ -93,6 +98,25 @@ export default function App() {
             <MoviesList movies={movies} onSelectMovie={handleSelectMovie} />
           )}
           {error && <Error message={error} />}
+        </Box>
+
+        <Box>
+          {selectedId ? (
+            <Watched
+              selectedId={selectedId}
+              onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
+              watched={watched}
+            />
+          ) : (
+            <>
+              <Summary watched={watched} />
+              <WatchedList
+                watched={watched}
+                onDeleteWatched={handleDeleteWatched}
+              />
+            </>
+          )}
         </Box>
         
       </Main>
