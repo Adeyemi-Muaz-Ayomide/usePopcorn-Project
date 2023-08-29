@@ -6,6 +6,7 @@ import MoviesList from "./components/Main/MoviesList/MoviesList";
 import Loading from "./components/UI/Loading";
 import Error from "./components/UI/Error";
 import Search from "./components/Navbar/Search";
+import Box from "./components/UI/Box";
 //Usekey don't forget
 
 const tempMovieData = [
@@ -35,10 +36,15 @@ const tempMovieData = [
 const KEY = "b0ea5caa";
 const QUERY = "interstellar";
 export default function App() {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
+
+  const handleSelectMovie = (id) => {
+    setSelectedId((selectedId) => (id === selectedId ? null : id));
+  };
 
   useEffect(() => {
     const getMoviesData = async () => {
@@ -68,9 +74,13 @@ export default function App() {
         <NumResults movies={movies} />
       </Navbar>
       <Main>
-        {isLoading && <Loading />}
-        {!isLoading && !error && <MoviesList movies={movies} />}
-        {error && <Error message={error} />}
+        <Box>
+          {isLoading && <Loading />}
+          {!isLoading && !error && (
+            <MoviesList movies={movies} onSelectMovie={handleSelectMovie} />
+          )}
+          {error && <Error message={error} />}
+        </Box>
       </Main>
     </>
   );
