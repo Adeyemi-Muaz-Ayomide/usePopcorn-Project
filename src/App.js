@@ -7,6 +7,8 @@ import Loading from "./components/UI/Loading";
 import Error from "./components/UI/Error";
 import Search from "./components/Navbar/Search";
 import Box from "./components/UI/Box";
+import { useLocalStorageState } from "./useLocalStorageState";
+
 //Usekey don't forget
 
 const tempMovieData = [
@@ -38,14 +40,25 @@ const QUERY = "interstellar";
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
+  // const { movies, isLoading, error } = useMovies(query);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  const [watched, setWatched] = useLocalStorageState([] , 'watched')
 
   const handleSelectMovie = (id) => {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   };
 
+
+  const handleAddWatched = (movie) => {
+    setWatched((watched) => [...watched, movie]);
+  }
+
+  const handleDeleteWatched = (id) =>{
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
+  }
   useEffect(() => {
     const getMoviesData = async () => {
       try {
@@ -81,6 +94,7 @@ export default function App() {
           )}
           {error && <Error message={error} />}
         </Box>
+        
       </Main>
     </>
   );
