@@ -55,7 +55,7 @@ const Watched = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     onCloseMovie();
   }
 
-  useKey("Escape", onCloseMovie);
+  // useKey("Escape", onCloseMovie);
 
   useEffect(
     function () {
